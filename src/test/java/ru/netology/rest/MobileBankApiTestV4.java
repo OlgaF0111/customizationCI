@@ -7,7 +7,7 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 
 class MobileBankApiTestV4 {
     @Test
-    void shouldReturnDemoAccounts() {
+    void checkingStatus() {
       // Given - When - Then
       // Предусловия
       given()
@@ -18,7 +18,21 @@ class MobileBankApiTestV4 {
       // Проверки
       .then()
           .statusCode(200)
-          .body(matchesJsonSchemaInClasspath("accounts.schema.json"))
-      ;
+          ;
+    }
+    @Test
+    void complianceScheme() {
+        // Given - When - Then
+        // Предусловия
+        given()
+                .baseUri("http://localhost:9999/api/v1")
+                // Выполняемые действия
+                .when()
+                .get("/demo/accounts")
+                // Проверки
+                .then()
+                .body(matchesJsonSchemaInClasspath("accounts.schema.json"))
+        ;
     }
 }
+
